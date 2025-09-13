@@ -23,6 +23,20 @@ import {
 } from "react-icons/fa";
 import { SiReact, SiMysql, SiJavascript, SiTailwindcss, SiNodedotjs, SiTypescript } from "react-icons/si";
 
+//import imagenes
+import dashboardImage from '../assets/AutiQo/dashboard.png';
+import Credito from '../assets/AutiQo/credito.png';
+import Login from '../assets/AutiQo/loginAQ.png';
+import Vehiculo from '../assets/AutiQo/vehiculo.png';
+import Excel from '../assets/AutiQo/Excel.png';
+import Clientes from '../assets/AutiQo/clientes.png';
+import app from '../assets/AutiQo/app.png';
+import proforma from '../assets/AutiQo/proforma.png';
+import AutiqoLogo from '../assets/AutiQo/icon.png';
+
+
+
+
 //mensaje de whatsapp
 const whatsappNumber = "59167720813";
 const whatsappMessage = "Hola, quiero solicitar la Demo De AutiQo";
@@ -31,6 +45,7 @@ const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 const AutiqoPage = () => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("General");
+    const [selectedImage, setSelectedImage] = useState(null);
 
     // Datos de ejemplo para funcionalidades
     const features = [
@@ -39,56 +54,56 @@ const AutiqoPage = () => {
             title: "App Móvil React Native",
             description: "Aplicación móvil desarrollada con React Native y SDK54 para gestión de proformas y cotizaciones sobre la marcha.",
             icon: <FaMobileAlt size={30} className="text-blue-500" />,
-            image: "https://via.placeholder.com/500x300?text=App+Autiqo"
+            image: app
         },
         {
             id: 2,
             title: "Sitio Web Administrativo",
             description: "Panel de administración completo con CRUD de productos, usuarios, sucursales y configuración del sistema.",
             icon: <FaDesktop size={30} className="text-green-500" />,
-            image: "https://via.placeholder.com/500x300?text=Panel+Administrativo"
+            image: Login
         },
         {
             id: 3,
             title: "Gestión de Productos",
             description: "Administra automóviles, motos y otros productos con toda su información técnica y comercial.",
             icon: <FaCar size={30} className="text-purple-500" />,
-            image: "https://via.placeholder.com/500x300?text=Gestión+Productos"
+            image: Vehiculo
         },
         {
             id: 4,
             title: "Sistema de Cotizaciones",
             description: "Genera proformas al contado o crédito con cálculo automático de cuotas según intereses y plazos.",
             icon: <FaCreditCard size={30} className="text-yellow-500" />,
-            image: "https://via.placeholder.com/500x300?text=Sistema+Cotizaciones"
+            image: Credito
         },
         {
             id: 5,
             title: "Generación de PDF",
             description: "Crea documentos profesionales en PDF con toda la información de la cotización para compartir con clientes.",
             icon: <FaFilePdf size={30} className="text-red-500" />,
-            image: "https://via.placeholder.com/500x300?text=Generador+PDF"
+            image: proforma
         },
         {
             id: 6,
             title: "Dashboard y Estadísticas",
             description: "Visualiza métricas y estadísticas de ventas, proformas por usuario, sucursal y modelo con gráficos interactivos.",
             icon: <FaChartLine size={30} className="text-indigo-500" />,
-            image: "https://via.placeholder.com/500x300?text=Dashboard+Estadísticas"
+            image: dashboardImage
         },
         {
             id: 7,
             title: "Gestión de Clientes",
             description: "Administra tu cartera de clientes, con historial de cotizaciones, estado de venta y etiquetas personalizables.",
             icon: <FaUsers size={30} className="text-pink-500" />,
-            image: "https://via.placeholder.com/500x300?text=Gestión+Clientes"
+            image: Clientes
         },
         {
             id: 8,
             title: "Filtros Avanzados",
             description: "Encuentra rápidamente proformas, clientes o productos con sistema de filtros por múltiples criterios.",
             icon: <FaFilter size={30} className="text-teal-500" />,
-            image: "https://via.placeholder.com/500x300?text=Filtros+Avanzados"
+            image: Excel
         }
     ];
 
@@ -116,6 +131,13 @@ const AutiqoPage = () => {
 
                 {/* Header */}
                 <div className="text-center mb-12">
+                    {/* Logo */}
+                    <img
+                        src={AutiqoLogo}
+                        alt="Autiqo Logo"
+                        className="mx-auto mb-4 w-32 h-auto" // Ajusta el tamaño a tu gusto
+                    />
+
                     <h1 className="text-4xl font-bold text-gray-900 mb-4">Sistema Autiqo</h1>
                     <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                         Software integral de gestión de ventas especializado en automóviles, motos y productos diversos,
@@ -125,7 +147,7 @@ const AutiqoPage = () => {
 
                 {/* Navegación por pestañas */}
                 <div className="flex flex-wrap justify-center mb-8">
-                    {["General", "Información", "Galería"].map((tab) => (
+                    {["General", "Información"].map((tab) => (
                         <button
                             key={tab}
                             className={`
@@ -143,7 +165,7 @@ const AutiqoPage = () => {
                                     ${activeTab === tab
                                     ? "scale-x-100 opacity-100"
                                     : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100"
-                                }`} 
+                                }`}
                             />
                         </button>
                     ))}
@@ -195,10 +217,16 @@ const AutiqoPage = () => {
 
                 {activeTab === "Información" && (
                     <div className="mb-8">
-                        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Funcionalidades de Autiqo</h2>
+                        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+                            Funcionalidades de Autiqo
+                        </h2>
+
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {features.map((feature) => (
-                                <div key={feature.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <div
+                                    key={feature.id}
+                                    className="bg-white rounded-lg shadow-md overflow-visible"
+                                >
                                     <div className="p-6">
                                         <div className="flex items-center mb-4">
                                             {feature.icon}
@@ -206,70 +234,53 @@ const AutiqoPage = () => {
                                         </div>
                                         <p className="text-gray-600 mb-4">{feature.description}</p>
                                     </div>
-                                    <div className="bg-gray-100 p-4 text-center">
-                                        <div className="text-gray-500 text-sm mb-2">Espacio para imagen:</div>
+
+                                    {/* Imagen con tooltip */}
+                                    <div className="bg-gray-100 p-4 text-center relative group cursor-pointer">
                                         <img
                                             src={feature.image}
                                             alt={feature.title}
-                                            className="mx-auto rounded shadow-inner h-48 object-cover w-full"
+                                            className="mx-auto rounded shadow-inner w-full max-h-64 object-contain transition-transform duration-500 ease-in-out hover:scale-125"
+                                            onClick={() => setSelectedImage(feature.image)}
                                         />
+                                        <span className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-black text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            Haz clic para ver imagen ampliada
+                                        </span>
                                     </div>
                                 </div>
                             ))}
                         </div>
-                    </div>
-                )}
 
-                {activeTab === "Galería" && (
-                    <div className="mb-8">
-                        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Galería de Imágenes</h2>
+                        {/* Modal */}
+                        {selectedImage && (
+                            <div
+                                className="fixed inset-0 flex items-center justify-center z-50"
+                                style={{ backgroundColor: "rgba(0,0,0,0.7)" }} // fondo transparente estilo RGB
+                                onClick={() => setSelectedImage(null)} // cerrar al hacer click fuera de la imagen
+                            >
+                                {/* Botón cerrar */}
+                                <button
+                                    onClick={() => setSelectedImage(null)}
+                                    title="Cerrar imagen"
+                                    className="absolute top-2 right-2 text-white text-3xl font-bold hover:text-gray-300 z-50"
+                                >
+                                    ✕
+                                </button>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {/* Espacio para imágenes de la app móvil */}
-                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                                <div className="p-4 bg-blue-50">
-                                    <h3 className="font-semibold text-blue-800">App Móvil</h3>
-                                </div>
-                                <div className="p-4">
-                                    <div className="text-gray-500 text-sm mb-2">Espacio para imagen de la app:</div>
+                                <div
+                                    className="relative"
+                                    onClick={(e) => e.stopPropagation()} // evita que se cierre al hacer click sobre la imagen
+                                >
+                                    {/* Imagen ampliada */}
                                     <img
-                                        src="https://via.placeholder.com/400x600?text=App+Autiqo"
-                                        alt="App Autiqo"
-                                        className="mx-auto rounded shadow-inner h-64 object-cover w-full"
+                                        src={selectedImage}
+                                        alt="Imagen ampliada"
+                                        className="max-h-[80vh] max-w-[90vw] rounded-lg shadow-xl transition-transform duration-300 scale-100 hover:scale-105"
                                     />
                                 </div>
                             </div>
+                        )}
 
-                            {/* Espacio para imágenes del dashboard */}
-                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                                <div className="p-4 bg-green-50">
-                                    <h3 className="font-semibold text-green-800">Dashboard</h3>
-                                </div>
-                                <div className="p-4">
-                                    <div className="text-gray-500 text-sm mb-2">Espacio para imagen del dashboard:</div>
-                                    <img
-                                        src="https://via.placeholder.com/400x600?text=Dashboard+Autiqo"
-                                        alt="Dashboard Autiqo"
-                                        className="mx-auto rounded shadow-inner h-64 object-cover w-full"
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Espacio para imágenes de proformas */}
-                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                                <div className="p-4 bg-purple-50">
-                                    <h3 className="font-semibold text-purple-800">Proformas y PDF</h3>
-                                </div>
-                                <div className="p-4">
-                                    <div className="text-gray-500 text-sm mb-2">Espacio para imagen de proforma:</div>
-                                    <img
-                                        src="https://via.placeholder.com/400x600?text=Proforma+Autiqo"
-                                        alt="Proforma Autiqo"
-                                        className="mx-auto rounded shadow-inner h-64 object-cover w-full"
-                                    />
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 )}
 
