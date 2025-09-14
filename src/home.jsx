@@ -1,5 +1,9 @@
+// src/home.jsx
+
 import React, { useState, useEffect, createContext, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { useApp } from "./context/AppContext.jsx"; // ✅ correcto
+
 
 //animaciones
 import PixelBlast from './components/PixelBlast';
@@ -7,164 +11,6 @@ import AnimatedContent from './components/AnimatedContent';
 
 // imagens portada de proyectos
 import loginAQ from './assets/autiqo/loginAQ.png';
-
-// Crear contexto para tema e idioma
-const AppContext = createContext();
-
-// Hook personalizado para usar el contexto
-export const useApp = () => useContext(AppContext);
-
-// Traducciones
-const translations = {
-  es: {
-    title: "SOFTAND",
-    heroTitle1: "Software a medida.",
-    heroTitle2: "Simple, claro y funcional.",
-    heroDescription: "Creamos sistemas, sitios web y apps adaptadas 100% a tu negocio.",
-    contactUs: "Contáctanos",
-    viewProjects: "Ver proyectos",
-    services: "Nuestros Servicios",
-    customSoftware: "Software a medida",
-    customSoftwareDesc: "Creamos soluciones que se adaptan a tus procesos, no al revés.",
-    webSites: "Sitios web profesionales",
-    webSitesDesc: "Desde páginas corporativas hasta e-commerce listos para vender.",
-    mobileApps: "Aplicaciones móviles",
-    mobileAppsDesc: "Desarrollo de apps Android/IOS a medida o híbridas.",
-    consulting: "Consultoría y soporte",
-    consultingDesc: "Te ayudamos a pensar la solución antes de programarla.",
-    projects: "Nuestros Proyectos",
-    projectsDesc: "Descubre algunos de nuestros trabajos más recientes",
-    all: "Todos",
-    web: "Web",
-    viewDetails: "Ver detalles",
-    footerDesc: "Desarrollo de software a medida para tu negocio.",
-    servicesTitle: "Servicios",
-    linksTitle: "Enlaces",
-    contactTitle: "Contacto",
-    home: "Inicio",
-    servicesLink: "Servicios",
-    projectsLink: "Proyectos",
-    clients: "Clientes",
-    rights: "Todos los derechos reservados."
-  },
-  en: {
-    title: "SOFTAND",
-    heroTitle1: "Custom software.",
-    heroTitle2: "Simple, clear and functional.",
-    heroDescription: "We create systems, websites and apps 100% adapted to your business.",
-    contactUs: "Contact us",
-    viewProjects: "View projects",
-    services: "Our Services",
-    customSoftware: "Custom software",
-    customSoftwareDesc: "We create solutions that adapt to your processes, not the other way around.",
-    webSites: "Professional websites",
-    webSitesDesc: "From corporate pages to e-commerce ready to sell.",
-    mobileApps: "Mobile applications",
-    mobileAppsDesc: "Development of custom Android/IOS apps or hybrid ones.",
-    consulting: "Consulting and support",
-    consultingDesc: "We help you think about the solution before programming it.",
-    projects: "Our Projects",
-    projectsDesc: "Discover some of our most recent works",
-    all: "All",
-    web: "Web",
-    viewDetails: "View details",
-    footerDesc: "Custom software development for your business.",
-    servicesTitle: "Services",
-    linksTitle: "Links",
-    contactTitle: "Contact",
-    home: "Home",
-    servicesLink: "Services",
-    projectsLink: "Projects",
-    clients: "Clients",
-    rights: "All rights reserved."
-  },
-  pt: {
-    title: "SOFTAND",
-    heroTitle1: "Software personalizado.",
-    heroTitle2: "Simples, claro e funcional.",
-    heroDescription: "Criamos sistemas, sites e aplicativos adaptados 100% ao seu negócio.",
-    contactUs: "Contate-nos",
-    viewProjects: "Ver projetos",
-    services: "Nossos Serviços",
-    customSoftware: "Software personalizado",
-    customSoftwareDesc: "Criamos soluções que se adaptam aos seus processos, não o contrário.",
-    webSites: "Sites profissionais",
-    webSitesDesc: "Desde páginas corporativas até e-commerce prontos para vender.",
-    mobileApps: "Aplicativos móveis",
-    mobileAppsDesc: "Desenvolvimento de aplicativos Android/IOS personalizados ou híbridos.",
-    consulting: "Consultoria e suporte",
-    consultingDesc: "Ajudamos você a pensar na solução antes de programá-la.",
-    projects: "Nossos Projetos",
-    projectsDesc: "Descubra alguns dos nossos trabalhos mais recentes",
-    all: "Todos",
-    web: "Web",
-    viewDetails: "Ver detalhes",
-    footerDesc: "Desenvolvimento de software personalizado para o seu negócio.",
-    servicesTitle: "Serviços",
-    linksTitle: "Links",
-    contactTitle: "Contato",
-    home: "Início",
-    servicesLink: "Serviços",
-    projectsLink: "Projetos",
-    clients: "Clientes",
-    rights: "Todos os direitos reservados."
-  }
-};
-
-// Proveedor de contexto
-export const AppProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [language, setLanguage] = useState("es");
-
-  useEffect(() => {
-    // Cargar preferencias guardadas
-    const savedDarkMode = localStorage.getItem("darkMode") === "true";
-    const savedLanguage = localStorage.getItem("language") || "es";
-
-    setIsDarkMode(savedDarkMode);
-    setLanguage(savedLanguage);
-
-    // Aplicar tema al cargar
-    if (savedDarkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
-
-  const toggleDarkMode = () => {
-    const newDarkMode = !isDarkMode;
-    setIsDarkMode(newDarkMode);
-    localStorage.setItem("darkMode", newDarkMode);
-
-    if (newDarkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  };
-
-  const changeLanguage = (lang) => {
-    setLanguage(lang);
-    localStorage.setItem("language", lang);
-  };
-
-  const t = (key) => {
-    return translations[language][key] || key;
-  };
-
-  return (
-    <AppContext.Provider value={{
-      isDarkMode,
-      toggleDarkMode,
-      language,
-      changeLanguage,
-      t
-    }}>
-      {children}
-    </AppContext.Provider>
-  );
-};
 
 export default function LandingPage() {
   const [isVisible, setIsVisible] = useState(false);
@@ -189,9 +35,17 @@ export default function LandingPage() {
   const projects = [
     {
       id: 1,
-      title: "Sistema de Gestión ERP AutiQo",
-      description: "Sistema de Gestion de Productos de ventas y creación de proformas de los mismos",
-      category: "Web",
+      title: {
+        es: "Sistema de Gestión ERP AutiQo",
+        en: "AutiQo ERP Management System",
+        pt: "Sistema de Gestão ERP AutiQo"
+      },
+      descriptions: {
+        es: "Sistema de Gestión de Productos de ventas y creación de proformas de los mismos",
+        en: "Product sales management system and creation of proformas",
+        pt: "Sistema de gestão de vendas de produtos e criação de proformas"
+      },
+      category: "web",
       image: loginAQ,
       url: "/proyectos/autiqo"
     },
@@ -205,10 +59,10 @@ export default function LandingPage() {
   };
 
   // Filtros para proyectos
-  const [filter, setFilter] = useState(t("all"));
-  const categories = [t("all"), t("web")];
+  const [filter, setFilter] = useState("all"); // 👈 siempre en inglés/base
+  const categories = ["all", "web"];
 
-  const filteredProjects = filter === t("all")
+  const filteredProjects = filter === "all"
     ? projects
     : projects.filter(project => project.category === filter);
 
@@ -231,11 +85,11 @@ export default function LandingPage() {
               <button
                 onClick={() => setOpen(!open)}
                 className={`
-          p-2 rounded-full flex items-center gap-1 text-sm font-medium
-          ${isDarkMode ? "bg-gray-700 text-white hover:bg-gray-600" : "bg-gray-200 text-gray-700 hover:bg-gray-300"}
-          transition-all duration-200
-        `}
-              >
+                  p-2 rounded-full flex items-center gap-1 text-sm font-medium
+                  ${isDarkMode ? "bg-gray-700 text-white hover:bg-gray-600" : "bg-gray-200 text-gray-700 hover:bg-gray-300"}
+                  transition-all duration-200
+                `}>
+
                 <span className="text-lg">{languageFlags[language]}</span>
                 <span className="text-xs">▼</span>
               </button>
@@ -459,7 +313,7 @@ export default function LandingPage() {
       </section>
 
       {/* Proyectos Section */}
-      <section id="proyectos" className={`px-6 py-20 ${isDarkMode ? "bg-gray-700" : "bg-gray-300"}`}>
+      <section id="proyectos" className={`px-6 py-10 ${isDarkMode ? "bg-gray-700" : "bg-gray-300"}`}>
         <div className="max-w-6xl mx-auto justify-items-center">
           <h2 className={`text-3xl font-bold text-center ${isDarkMode ? "text-white" : "text-[#25334b]"} mb-6`}>{t("projects")}</h2>
           <p className={`text-center ${isDarkMode ? "text-gray-300" : "text-gray-600"} mb-12`}>{t("projectsDesc")}</p>
@@ -489,7 +343,7 @@ export default function LandingPage() {
                       : 'bg-white text-[#25334b]'
                     } transition-colors`}
                 >
-                  {category}
+                  {t(category)} {/* 👈 aquí sí traduces */}
                 </button>
               ))}
             </div>
@@ -528,8 +382,10 @@ export default function LandingPage() {
                   />
                   <div className="p-6">
                     <span className="text-sm text-[#3d6dbf] font-semibold">{project.category}</span>
-                    <h3 className={`text-xl font-bold mt-2 mb-3 ${isDarkMode ? "text-white" : "text-gray-900"}`}>{project.title}</h3>
-                    <p className={isDarkMode ? "text-gray-300" : "text-[#25334b]"}>{project.description}</p>
+                    <h3 className={`text-xl font-bold mt-2 mb-3 ${isDarkMode ? "text-white" : "text-gray-900"}`}>{project.title[language]}</h3>
+                    <p className={isDarkMode ? "text-gray-300" : "text-[#25334b]"}>
+                      {project.descriptions ? project.descriptions[language] : project.description}
+                    </p>
                     <div>
                       <button
                         className="learn-more group relative w-44 h-10 bg-transparent p-0 border-0 outline-none cursor-pointer font-inherit text-inherit"
@@ -603,7 +459,7 @@ export default function LandingPage() {
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 group-hover:text-blue-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                <a href="mailto:info@softand.com" className="hover:text-blue-400 transition-colors">info@softand.com</a>
+                <a href="mailto:info@softand.com" className="hover:text-blue-400 transition-colors">info@softand.com.bo</a>
               </li>
               <li className="flex items-center group">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 group-hover:text-blue-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -616,7 +472,7 @@ export default function LandingPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <span className="hover:text-blue-400 transition-colors">Bolivia, Santa Cruz de la Sierra</span>
+                <span className="hover:text-blue-400 transition-colors">Bolivia, Santa Cruz, Santa Cruz de la Sierra</span>
               </li>
             </ul>
           </div>

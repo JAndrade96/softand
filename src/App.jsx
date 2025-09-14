@@ -1,7 +1,9 @@
+// src/App.jsx
+
 import { Routes, Route } from 'react-router-dom';
 import LandingPage from './home.jsx';
 import AutiqoWelcome from './proyects/autiqo.jsx';
-import { AppProvider } from './home.jsx';
+import { AppProvider } from './context/AppContext.jsx';
 
 export default function App() {
   return (
