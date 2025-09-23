@@ -292,7 +292,7 @@ const AutiqoPage = () => {
     ];
 
     // Configurar mensaje de WhatsApp según idioma
-    const whatsappNumber = "59167720813";
+    const whatsappNumber = "59177490586";
     const whatsappMessage = whatsappMessages[language];
     const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
